@@ -1,5 +1,6 @@
 import 'package:app_covid/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:vibration/vibration.dart';
 
 void main() {
   runApp(MyApp());

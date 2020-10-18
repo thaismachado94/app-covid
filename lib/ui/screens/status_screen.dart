@@ -23,7 +23,7 @@ class OptionScreen extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              color: selected ? myPrimaryColortxt : mySecondColortxt,
+              color: selected ? myPrimaryColorbk : mySecondColortxt,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -38,7 +38,7 @@ class OptionScreen extends StatelessWidget {
                       width: 10,
                       height: 10,
                       decoration: BoxDecoration(
-                        color: myColorGeneric,
+                        color: myPrimaryColorbk,
                         shape: BoxShape.circle,
                       ),
                     ),

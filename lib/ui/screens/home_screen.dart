@@ -21,13 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: myColorGeneric,
+      backgroundColor: myPrimaryColortxt,
       appBar: AppBar(
-        // elevation: 0,
+        elevation: 0,
         backgroundColor: myPrimaryColorbk,
         title: Text(
-          "COVID",
-          style: TextStyle(color: myColorGeneric),
+          "COVID - ESTADOS BRASIL",
+          style: TextStyle(color: myPrimaryColortxt),
         ),
         centerTitle: true,
       ),
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     }),
                 OptionScreen(
-                    title: "COVID",
+                    title: "STATION",
                     selected: statusScreen == StatusScreen.STATE,
                     onSelected: () {
                       setState(() {
