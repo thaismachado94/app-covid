@@ -32,6 +32,8 @@ dependencies:
   flutter_typeahead:
   timeago:
   charts_flutter:
+  http:
+  vibration:
 
 dev_dependencies:
   flutter_test:
