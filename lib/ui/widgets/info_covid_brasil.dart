@@ -16,7 +16,7 @@ class InfoCovidBrasil extends StatelessWidget {
           Flexible(
             child: Row(
               children: [
-                buildCard("CASOS", resultBrasil.cases, myPrimaryColorbk),
+                buildCard("CASOS ATIVOS", resultBrasil.cases, myPrimaryColorbk),
                 buildCard(
                     "CONFIRMADOS", resultBrasil.confirmed, myPrimaryColorbk),
               ],
@@ -47,7 +47,7 @@ class InfoCovidBrasil extends StatelessWidget {
         children: <Widget>[
           Container(
             width: 165,
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.only(top: 25),
             child: Column(
               children: <Widget>[
                 Text(

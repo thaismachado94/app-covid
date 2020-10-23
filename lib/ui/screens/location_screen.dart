@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:vibration/vibration.dart';
 import '../../core/services/api_covid.dart';
 import '../../core/models/covid_brasil.dart';
+import '../widgets/loading.dart';
 
 ApiCovidBrasil apiCovidBrasil = ApiCovidBrasil();
 
@@ -17,9 +18,9 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   void initState() {
-    Vibration.vibrate(duration: 500);
     super.initState();
     resultCovidBrasil = apiCovidBrasil.getCovidBRasil();
+    Vibration.vibrate(duration: 500);
   }
 
   @override
@@ -28,15 +29,15 @@ class _LocationScreenState extends State<LocationScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+          padding: EdgeInsets.only(bottom: 100, left: 50, right: 50),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
                 "Covid no Brasil",
                 style: TextStyle(
-                  color: mySecondColortxt,
-                  fontSize: 16,
+                  color: myColorGeneric,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -49,7 +50,8 @@ class _LocationScreenState extends State<LocationScreen> {
                 },
                 child: Icon(
                   Icons.refresh,
-                  color: myPrimaryColortxt,
+                  size: 50,
+                  color: myColorGeneric,
                 ),
               ),
             ],
@@ -64,12 +66,7 @@ class _LocationScreenState extends State<LocationScreen> {
               );
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
-                return Center(
-                  child: Text(
-                    "Loading",
-                    style: TextStyle(color: mySecondColortxt),
-                  ),
-                );
+                return Loading();
               default:
                 return !snapshot.hasData
                     ? Center(

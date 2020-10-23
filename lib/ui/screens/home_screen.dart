@@ -1,6 +1,6 @@
 import 'package:app_covid/core/constants/const.dart';
 import 'package:flutter/material.dart';
-import '../screens/status_screen.dart';
+import '../widgets/optionScreen.dart';
 import '../screens/state_screen.dart';
 import '../screens/location_screen.dart';
 
@@ -24,10 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: myPrimaryColortxt,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: myPrimaryColorbk,
+        backgroundColor: myPrimaryColortxt,
         title: Text(
           "COVID - ESTADOS BRASIL",
-          style: TextStyle(color: myPrimaryColortxt),
+          style: TextStyle(color: myPrimaryColorbk),
         ),
         centerTitle: true,
       ),
@@ -42,6 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(50),
                   bottomRight: Radius.circular(50),
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50),
                 ),
               ),
               child: AnimatedSwitcher(
@@ -66,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     }),
                 OptionScreen(
-                    title: "STATION",
+                    title: "STATE",
                     selected: statusScreen == StatusScreen.STATE,
                     onSelected: () {
                       setState(() {

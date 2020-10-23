@@ -1,4 +1,4 @@
-class CovidEstadoModel {
+class ListEstadoModel {
   final int uid;
   final String uf;
   final String state;
@@ -8,11 +8,11 @@ class CovidEstadoModel {
   final int refuses;
   final String datetime;
 
-  CovidEstadoModel(this.uid, this.uf, this.state, this.cases, this.deaths,
+  ListEstadoModel(this.uid, this.uf, this.state, this.cases, this.deaths,
       this.suspects, this.refuses, this.datetime);
 
-  factory CovidEstadoModel.fromJson(Map<String, dynamic> json) {
-    return CovidEstadoModel(
+  factory ListEstadoModel.fromJson(Map<String, dynamic> json) {
+    return ListEstadoModel(
       json["data"]["uid"],
       json["data"]["uf"],
       json["data"]["state"],
