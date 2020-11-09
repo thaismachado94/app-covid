@@ -1,12 +1,12 @@
 import 'package:app_covid/core/constants/const.dart';
 import 'package:flutter/material.dart';
 import '../widgets/optionScreen.dart';
-import '../screens/state_screen.dart';
+import 'city_screen.dart';
 import '../screens/location_screen.dart';
 
 enum StatusScreen {
   LOCATION,
-  STATE,
+  CITY,
 }
 
 class HomeScreen extends StatefulWidget {
@@ -21,12 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: myPrimaryColortxt,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: myPrimaryColortxt,
         title: Text(
-          "COVID - ESTADOS BRASIL",
+          "COVID - INTERIOR ",
           style: TextStyle(color: myPrimaryColorbk),
         ),
         centerTitle: true,
@@ -39,18 +40,12 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.all(32),
               decoration: BoxDecoration(
                 color: myPrimaryColorbk,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
-                ),
               ),
               child: AnimatedSwitcher(
                 duration: Duration(milliseconds: 300),
                 child: statusScreen == StatusScreen.LOCATION
                     ? LocationScreen()
-                    : StateScreen(),
+                    : CityScreen(),
               ),
             ),
           ),
@@ -60,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 OptionScreen(
-                    title: "LOCATION",
+                    title: "LOCAL",
                     selected: statusScreen == StatusScreen.LOCATION,
                     onSelected: () {
                       setState(() {
@@ -68,11 +63,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     }),
                 OptionScreen(
-                    title: "STATE",
-                    selected: statusScreen == StatusScreen.STATE,
+                    title: "CIDADES",
+                    selected: statusScreen == StatusScreen.CITY,
                     onSelected: () {
                       setState(() {
-                        statusScreen = StatusScreen.STATE;
+                        statusScreen = StatusScreen.CITY;
                       });
                     }),
               ],

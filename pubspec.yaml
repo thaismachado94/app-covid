@@ -31,9 +31,10 @@ dependencies:
   shimmer: 
   flutter_typeahead:
   timeago:
-  charts_flutter:
   http:
   vibration:
+  geolocator:
+  google_geocoding:
 
 dev_dependencies:
   flutter_test:

@@ -1,10 +1,12 @@
 import 'package:app_covid/core/constants/const.dart';
-import 'package:app_covid/ui/widgets/info_covid_brasil.dart';
+import 'package:app_covid/ui/widgets/info_covid_local.dart';
 import 'package:flutter/material.dart';
 import 'package:vibration/vibration.dart';
 import '../../core/services/api_covid.dart';
-import '../../core/models/covid_brasil.dart';
+import '../../core/models/covid_local.dart';
 import '../widgets/loading.dart';
+import 'dart:async';
+import 'package:geolocator/geolocator.dart';
 
 ApiCovidBrasil apiCovidBrasil = ApiCovidBrasil();
 
@@ -14,13 +16,19 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  Future<CovidBrasilModel> resultCovidBrasil;
+  Future<List<CovidLocalModel>> resultLocal;
+
+  getLocalizacao() async {
+    final geoposition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
 
   @override
   void initState() {
     super.initState();
-    resultCovidBrasil = apiCovidBrasil.getCovidBRasil();
-    Vibration.vibrate(duration: 500);
+    getLocalizacao();
+    resultLocal = apiCovidBrasil.getCovidLocal();
+    Vibration.vibrate(duration: 1000);
   }
 
   @override
@@ -34,7 +42,7 @@ class _LocationScreenState extends State<LocationScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                "Covid no Brasil",
+                "Covid Local",
                 style: TextStyle(
                   color: myColorGeneric,
                   fontSize: 24,
@@ -44,8 +52,9 @@ class _LocationScreenState extends State<LocationScreen> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    resultCovidBrasil = apiCovidBrasil.getCovidBRasil();
-                    Vibration.vibrate(duration: 500);
+                    resultLocal = apiCovidBrasil.getCovidLocal();
+                    getLocalizacao();
+                    Vibration.vibrate(duration: 1000);
                   });
                 },
                 child: Icon(
@@ -58,11 +67,11 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
         ),
         FutureBuilder(
-          future: resultCovidBrasil,
+          future: resultLocal,
           builder: (context, snapshot) {
             if (snapshot.hasError)
               return Center(
-                child: Text("Error"),
+                child: Text("Erro para buscar os dados"),
               );
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
@@ -75,8 +84,8 @@ class _LocationScreenState extends State<LocationScreen> {
                           style: TextStyle(color: mySecondColortxt),
                         ),
                       )
-                    : InfoCovidBrasil(
-                        resultBrasil: snapshot.data,
+                    : InfoCovidLocal(
+                        resultLocal: snapshot.data,
                       );
             }
           },

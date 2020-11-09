@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../core/constants/const.dart';
-import '../../core/models/covid_brasil.dart';
+import '../../core/models/covid_local.dart';
 
-class InfoCovidBrasil extends StatelessWidget {
-  final CovidBrasilModel resultBrasil;
-
-  InfoCovidBrasil({@required this.resultBrasil});
+class InfoCovidLocal extends StatelessWidget {
+  final List<CovidLocalModel> resultLocal;
+  InfoCovidLocal({@required this.resultLocal});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +15,14 @@ class InfoCovidBrasil extends StatelessWidget {
           Flexible(
             child: Row(
               children: [
-                buildCard("CASOS ATIVOS", resultBrasil.cases, myPrimaryColorbk),
                 buildCard(
-                    "CONFIRMADOS", resultBrasil.confirmed, myPrimaryColorbk),
+                    "CASOS ATIVOS",
+                    resultLocal[resultLocal.length - 1].ativos,
+                    myPrimaryColorbk),
+                buildCard(
+                    "CONFIRMADOS",
+                    resultLocal[resultLocal.length - 1].confirmados,
+                    myPrimaryColorbk),
               ],
             ),
           ),
@@ -29,8 +33,11 @@ class InfoCovidBrasil extends StatelessWidget {
             child: Row(
               children: [
                 buildCard(
-                    "RECUPERADOS", resultBrasil.recovered, myPrimaryColorbk),
-                buildCard("MORTES", resultBrasil.deaths, myPrimaryColorbk),
+                    "RECUPERADOS",
+                    resultLocal[resultLocal.length - 1].recuperados,
+                    myPrimaryColorbk),
+                buildCard("MORTES", resultLocal[resultLocal.length - 1].mortes,
+                    myPrimaryColorbk),
               ],
             ),
           ),
@@ -39,7 +46,7 @@ class InfoCovidBrasil extends StatelessWidget {
     );
   }
 
-  Widget buildCard(String title, int cases, Color color) {
+  Widget buildCard(String title, String casos, Color color) {
     return Card(
       elevation: 4,
       color: myPrimaryColortxt,
@@ -59,8 +66,11 @@ class InfoCovidBrasil extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  cases.toString(),
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  casos.toString(),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),

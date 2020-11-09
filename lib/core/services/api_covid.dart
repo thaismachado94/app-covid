@@ -1,56 +1,47 @@
-import 'package:app_covid/core/models/covid_brasil.dart';
-import 'package:app_covid/core/models/covid_estados.dart';
-import 'package:app_covid/core/models/list_estados.dart';
-import 'package:app_covid/core/models/testList.dart';
+import 'package:app_covid/core/models/covid_local.dart';
+import 'package:app_covid/core/models/covid_cidades.dart';
+import 'package:app_covid/core/models/listCidades.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+/* metodo de criação de dados da api */
 class ApiCovidBrasil {
-  Future<CovidBrasilModel> getCovidBRasil() async {
-    final data = await http.Client()
-        .get("https://covid19-brazil-api.now.sh/api/report/v1/brazil");
+/* metodo de teste api*/
+  Future<List<CovidLocalModel>> getCovidLocal() async {
+    final data = await http.Client().get(
+        "https://my-json-server.typicode.com/thaismachado94/api_covid_interior/mairinque");
+    if (data.statusCode != 200) throw Exception();
 
-    CovidBrasilModel resultBrasil =
-        CovidBrasilModel.fromJson(json.decode(data.body));
-    return resultBrasil;
-  }
-
-  Future<List<CovidEstadoModel>> getCovidEstados() async {
-    final data = await http.Client()
-        .get("https://covid19-brazil-api.now.sh/api/report/v1/brazil/uf/");
-
-    List<CovidEstadoModel> resultCovidEstado = (json.decode(data.body) as List)
-        .map((item) => new CovidEstadoModel.fromJson(item))
+    List<CovidLocalModel> resultLocal = (json.decode(data.body) as List)
+        .map((item) => new CovidLocalModel.fromJson(item))
         .toList();
-
-    return resultCovidEstado;
+    return resultLocal;
   }
 
-  Future<List<ListEstadoModel>> getListEstado() async {
-    final data = await http.Client()
-        .get("https://covid19-brazil-api.now.sh/api/report/v1");
+/* metodo para pegar os dados das cidades  */
+  Future<List<CovidCidadeModel>> getCidades(String cidade) async {
+    final data = await http.Client().get(
+        "https://my-json-server.typicode.com/thaismachado94/api_covid_interior/" +
+            cidade);
+    if (data.statusCode != 200) throw Exception();
 
-    if (data.statusCode != 200) {
-      print("ERRO NO GET LIST");
-    }
-
-    List<ListEstadoModel> listEstado = (json.decode(data.body) as List)
-        .map((item) => new ListEstadoModel.fromJson(item))
+    List<CovidCidadeModel> covidCidades = (json.decode(data.body) as List)
+        .map((item) => new CovidCidadeModel.fromJson(item))
         .toList();
-
-    return listEstado;
+    return covidCidades;
   }
 
-  Future<List<CountryModel>> getCountryList() async {
-    final data = await http.Client()
-        .get("https://covid19-brazil-api.now.sh/api/report/v1");
+/* metodo para listar as cidades no dropList */
+  Future<List<ListCidadesModel>> getListCidades() async {
+    final data = await http.Client().get(
+        "https://my-json-server.typicode.com/thaismachado94/api_covid_interior/dropCidades");
 
     if (data.statusCode != 200) throw Exception();
 
-    List<CountryModel> countries = (json.decode(data.body) as List)
-        .map((item) => new CountryModel.fromJson(item))
+    List<ListCidadesModel> listCidades = (json.decode(data.body) as List)
+        .map((item) => new ListCidadesModel.fromJson(item))
         .toList();
 
-    return countries;
+    return listCidades;
   }
 }
